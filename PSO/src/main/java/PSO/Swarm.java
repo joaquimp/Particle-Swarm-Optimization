@@ -14,9 +14,11 @@ public class Swarm {
     private Vector bestPosition;
     private double bestEval;
     private FunctionType function; // The function to search.
-    public static final double DEFAULT_INERTIA = 0.729844;
-    public static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
-    public static final double DEFAULT_SOCIAL = 1.496180; // Social component.
+
+    // Alterados valores padrão para o exemplo implementado
+    public static final double DEFAULT_INERTIA = 0.9; //0.729844;
+    public static final double DEFAULT_COGNITIVE = 0.5; //1.496180; // Cognitive component.
+    public static final double DEFAULT_SOCIAL = 0.3; //1.496180; // Social component.
 
     /**
      * When Particles are created they are given a random position.
@@ -25,8 +27,10 @@ public class Swarm {
      * value will be between 0 (inclusive) and 10 (exclusive).
      */
     private int beginRange, endRange;
-    private static final int DEFAULT_BEGIN_RANGE = -100;
-    private static final int DEFAULT_END_RANGE = 101;
+
+    // Alterado os limites padrão para o exemplo implementado
+    private static final int DEFAULT_BEGIN_RANGE = -2; //-100;
+    private static final int DEFAULT_END_RANGE = 2; //101;
 
     /**
      * Construct the Swarm with default values.
@@ -52,9 +56,9 @@ public class Swarm {
         this.cognitiveComponent = cognitive;
         this.socialComponent = social;
         this.function = function;
-        double infinity = Double.POSITIVE_INFINITY;
+        double infinity = Double.NEGATIVE_INFINITY; //Alterado para maximizar a função
         bestPosition = new Vector(infinity, infinity, infinity);
-        bestEval = Double.POSITIVE_INFINITY;
+        bestEval = Double.NEGATIVE_INFINITY; //Alterado para maximizar a função
         beginRange = DEFAULT_BEGIN_RANGE;
         endRange = DEFAULT_END_RANGE;
     }
@@ -71,7 +75,7 @@ public class Swarm {
 
         for (int i = 0; i < epochs; i++) {
 
-            if (bestEval < oldEval) {
+            if (bestEval > oldEval) {
                 System.out.println("Global Best Evaluation (Epoch " + (i + 1) + "):\t" + bestEval);
                 oldEval = bestEval;
             }
@@ -117,7 +121,7 @@ public class Swarm {
      * @param particle  the particle to analyze
      */
     private void updateGlobalBest (Particle particle) {
-        if (particle.getBestEval() < bestEval) {
+        if (particle.getBestEval() > bestEval) { //Alterado para maximizar a função
             bestPosition = particle.getBestPosition();
             bestEval = particle.getBestEval();
         }
@@ -155,5 +159,4 @@ public class Swarm {
 
         particle.setVelocity(newVelocity);
     }
-
 }

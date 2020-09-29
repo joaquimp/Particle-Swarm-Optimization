@@ -37,12 +37,9 @@ class Particle {
     private double eval () {
         if (function == FunctionType.FunctionA) {
             return Function.functionA(position.getX());
-        } else if (function == FunctionType.Ackleys) {
-            return Function.ackleysFunction(position.getX(), position.getY());
-        } else if (function == FunctionType.Booths) {
-            return Function.boothsFunction(position.getX(), position.getY());
         } else {
-            return Function.threeHumpCamelFunction(position.getX(), position.getY());
+            // Caso não reconheça a função escolhida
+            throw new UnsupportedOperationException();
         }
     }
 
@@ -69,7 +66,7 @@ class Particle {
      */
     void updatePersonalBest () {
         double eval = eval();
-        if (eval < bestEval) {
+        if (eval > bestEval) { //Alterado para maximizar a função
             bestPosition = position.clone();
             bestEval = eval;
         }

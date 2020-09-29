@@ -6,8 +6,6 @@ public class Main {
 
     public static void main (String[] args) {
         if (args.length == 1 && args[0].equals("-p")) {
-            menu(true);
-        } else {
             System.out.print("Use the parameter '-p' to change the inertia, ");
             System.out.println("cognitive and social components.");
             System.out.println("Otherwise the default values will be: ");
@@ -15,6 +13,9 @@ public class Main {
             System.out.println("Cognitive Component: " + Swarm.DEFAULT_COGNITIVE);
             System.out.println("Social Component:    " + Swarm.DEFAULT_SOCIAL);
             menu(false);
+        } else {
+
+            menu(true);
         }
     }
 
@@ -104,20 +105,13 @@ public class Main {
     private static void printMenu () {
         System.out.println("----------------------------MENU----------------------------");
         System.out.println("Select a function:");
-        System.out.println("1. (x^4)-2(x^3)");
-        System.out.println("2. Ackley's Function");
-        System.out.println("3. Booth's Function");
-        System.out.println("4. Three Hump Camel Function");
+        System.out.println("1. Function: 2^(-2 * ((x-0.1)/0.9)^2)*(sin(5 * PI * x))^6");
         System.out.print("Function:  ");
     }
 
     private static Particle.FunctionType getFunction (int input) {
         if (input == 1)         return Particle.FunctionType.FunctionA;
-        else if (input == 2)    return Particle.FunctionType.Ackleys;
-        else if (input == 3)    return Particle.FunctionType.Booths;
-        else if (input == 4)    return Particle.FunctionType.ThreeHumpCamel;
-        System.out.println("Invalid Input.");
+        else                    System.out.println("Invalid Input.");
         return null;
     }
-
 }
